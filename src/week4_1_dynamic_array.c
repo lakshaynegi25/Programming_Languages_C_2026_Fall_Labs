@@ -1,48 +1,60 @@
 /*
  * week4_1_dynamic_array.c
- * Author: [Your Name]
- * Student ID: [Your ID]
- * Description:
- *   Demonstrates creation and usage of a dynamic array using malloc.
- *   Allocate memory for n integers, read them from the user,
- *   print their sum and average, and then free the memory.
- *
- *   Output must match the format in the Week 4 instructions exactly
- *   (it is checked by the autograder).
+ * Author: Lakshay Negi
+ * Student ID: 241ADB131
+ * Description: Dynamically allocates an integer array using malloc,
+ *              reads elements from the user, computes their sum and average,
+ *              and properly frees allocated memory.
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 
 int main(void) {
-    int n;
-    int *arr = NULL;
+  int n;
 
-    printf("Enter number of elements: ");
-    if (scanf("%d", &n) != 1 || n <= 0) {
-        printf("Invalid size.\n");
-        return 1;
+  // Prompt the user for the number of elements (no newline as required)
+  printf("Enter number of elements: ");
+
+  // Validate that input is an integer and strictly positive (> 0)
+  if (scanf("%d", &n) != 1 || n <= 0) {
+    printf("Invalid size.\n");
+    return 1;
+  }
+
+  // Dynamically allocate memory for n integers using malloc
+  int* arr = (int*)malloc((size_t)n * sizeof(int));
+
+  // Always check if malloc returned NULL (allocation failure)
+  if (arr == NULL) {
+    printf("Memory allocation failed.\n");
+    return 1;
+  }
+
+  // Prompt the user to enter N integers (no newline after prompt)
+  printf("Enter %d integers: ", n);
+
+  long long sum = 0;  // USe long long to prevent potential integer overflow
+                      // during summation
+  for (int i = 0; i < n; i++) {
+    // Read each integer and validate input
+    if (scanf("%d", &arr[i]) != 1) {
+      printf("Invalid input.\n");
+      free(arr);  // Free allocated memory before exiting on error
+      return 1;
     }
+    sum += arr[i];
+  }
 
-    // TODO: Allocate memory for n integers using malloc
-    // Example: arr = malloc(n * sizeof(int));
+  // Compute average in floating-point arithmetic
+  double average = (double)sum / n;
 
-    // TODO: Check allocation success
-    // If arr is NULL: print "Memory allocation failed." and return 1
+  // Print results in the exact required format
+  printf("Sum = %lld\n", sum);
+  printf("Average = %.2f\n", average);
 
-    // TODO: Print the prompt "Enter %d integers: " (with n), then read
-    //       n integers into the array.
-    //       If a value cannot be read: print "Invalid input.",
-    //       free the array and return 1
+  // Free dynamically allocated memory before program termination
+  free(arr);
 
-    // TODO: Compute the sum and the average (use floating point for the average)
-
-    // TODO: Print the results exactly as:
-    //       Sum = <sum>
-    //       Average = <average with 2 decimals, %.2f>
-
-    // TODO: Free allocated memory
-    (void)arr;  // remove this line once you use arr
-
-    return 0;
+  return 0;
 }
