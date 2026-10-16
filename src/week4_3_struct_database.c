@@ -1,6 +1,7 @@
 /*
  * week4_3_struct_database.c
  * Author: Lakshay Negi
+ * Student ID: 241ADB131
  * Description: Dynamically allocates an array of Student structures using
  * malloc, reads student records from user input, displays them in a formatted
  *              table, and frees all allocated memory before exiting.
@@ -45,8 +46,8 @@ int main(void) {
     // Read name (up to 49 chars to prevent buffer overflow), id, and grade
     if (scanf("%49s %d %f", students[i].name, &students[i].id,
               &students[i].grade) != 3) {
+      free(students);  // Free the array first before printing error and exiting
       printf("Invalid input.\n");
-      free(students);  // Always free allocated memory before exiting on error
       return 1;
     }
   }

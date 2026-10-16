@@ -1,6 +1,6 @@
 /*
  * week4_1_dynamic_array.c
- * Author: Lakshay Negi
+ * Author:Lakshay Negi
  * Student ID: 241ADB131
  * Description: Dynamically allocates an integer array using malloc,
  *              reads elements from the user, computes their sum and average,
@@ -34,13 +34,13 @@ int main(void) {
   // Prompt the user to enter N integers (no newline after prompt)
   printf("Enter %d integers: ", n);
 
-  long long sum = 0;  // USe long long to prevent potential integer overflow
+  long long sum = 0;  // Use long long to prevent potential integer overflow
                       // during summation
   for (int i = 0; i < n; i++) {
     // Read each integer and validate input
     if (scanf("%d", &arr[i]) != 1) {
+      free(arr);  // Free the array first before printing error and exiting
       printf("Invalid input.\n");
-      free(arr);  // Free allocated memory before exiting on error
       return 1;
     }
     sum += arr[i];
